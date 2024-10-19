@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+
+    tools{
+        jdk 'JDK17'
+        maven 'Maven3'
+    }
+
+
+    stages {
+        stage('Build Maven') {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/emreeozll/devops-002-pipeline']])
+
+                //sh 'mvn clean install'
+                bat 'mvn clean install'
+            }
+        }
+
+
+
+           stage('Docker Image') {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/emreeozll/devops-002-pipeline']])
+
+                //sh 'mvn clean install'
+                bat 'docker build -t  emreeoozell/my-applications:latest   .'
+            }
+        }
+
+
+
+        stage('Docker Image to DockerHub') {
+            steps {
+                //sh 'mvn clean install'
+               script{
+
+                withCredentials([string(credentialsId: 'DockerHubToken', variable: 'DockerHubToken')]){
+                  // some block
+
+
+
+                    bat ' echo docker login --username emreeoozell --password ${DockerHubToken}'
+
+                  //bat 'docker build -t  emreeoozell/my-applications   .'  : aynısı var diye yorum satırına aldım
+
+                   bat 'docker image push docker.io/emreeoozell/my-applications:latest'
+
+                }
+              }
+           }
+        }
+
+
+         stage(' Deploy Kubernetes') {
+              steps{
+               script{
+                             kubernetesDeploy (configs: 'deploymentservice.yaml', kubeconfigId: 'Kubernetes')
+                     }
+               }
+         }
+
+
+    }
+}

@@ -1,32 +1,3 @@
-# Getting Started
-
-### Reference Documentation
-
-For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.3.4/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.3.4/maven-plugin/build-image.html)
-* [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/3.3.4/reference/htmlsingle/index.html#actuator)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.3.4/reference/htmlsingle/index.html#web)
-
-### Guides
-
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service with Spring Boot Actuator](https://spring.io/guides/gs/actuator-service/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-
-### Maven Parent overrides
-
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the
-parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
-
 
 #  DOCKER
 
@@ -77,7 +48,7 @@ docker build --build-arg JAR_FILE=target/devops-001-hello-1.0.1.jar  --tag  emre
 docker build --build-arg JAR_FILE=target/devops-001-hello-1.0.2.jar  --tag  emreeoozell/devops-application-001:v002 .
 ```
 
-#Son sürüm zorunlu olarak çıakrtmamız gerekliidir. Mutlaka son sürüm bu ya gözükemsi lazım
+#Son sürüm zorunlu olarak çıkartmamız gerekliidir. Mutlaka son sürüm bu ya gözükemsi lazım
 ```
 docker build --build-arg JAR_FILE=target/devops-001-hello-1.0.2.jar  --tag  emreeoozell/devops-application-001:latest .
 ```
@@ -86,7 +57,7 @@ docker build --build-arg JAR_FILE=target/devops-001-hello-1.0.2.jar  --tag  emre
 ```
 docker build  --build-arg JAR_FILE=target/devops-001-hello-1.0.1.jar   --tag    mimaraslan/devops-001-hello:v001   .
 ```
-==================Burada jenkins'e yukarıdaki kodu kkullanmanın daha kolay bir kısayol ile image gönderimi sağlayabiliriz. Çünkü jenkins'te .jar'a ihtiyacımız yoktur.
+==================Burada jenkins'e yukarıdaki kodu kullanmanın daha kolay bir kısayol ile image gönderimi sağlayabiliriz. Çünkü jenkins'te .jar'a ihtiyacımız yoktur.
 o sadece backend'de oluşturulmaısı gereken bir alan. Versiyon belirtmek istmeiyorsak yazmıyoruz ama profesyonellikte yazılması gerekir.=====================================
 ```
 docker build -t  mimaraslan/devops-001-hello:v001   . || docker build -t  mimaraslan/devops-001-hello   .
@@ -240,7 +211,10 @@ docker compose -f docker-compose.yml down
 
 
 
-### ============ Kubernetes ===========
+### ============ Kubernetes compose ===========
+
+kubectl apply -f _02_service_loadbalancer_create.yaml
+
 
 ### Docker Hub'daki imajı, yerel makinemde Docker kullanarak çekiyor ve bir container olarak çalıştırıyorum.
 ```
@@ -269,4 +243,3 @@ kubectl get node
 kubectl get pods
 kubectl get pod
 ```
-
