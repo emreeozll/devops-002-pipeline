@@ -40,7 +40,7 @@ pipeline {
 
 
 
-                    bat ' echo docker login --username emreeoozell --password ${DockerHubToken}'
+                  bat ' echo docker login --username emreeoozell --password ${DockerHubToken}'
 
                   //bat 'docker build -t  emreeoozell/my-applications   .'  : aynısı var diye yorum satırına aldım
 
@@ -52,7 +52,7 @@ pipeline {
         }
 
 
-         stage(' Deploy Kubernetes') {
+         stage('Deploy Kubernetes') {
               steps{
                script{
                              kubernetesDeploy (configs: 'deploymentservice.yaml', kubeconfigId: 'Kubernetes')
