@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: devops-application
-          image: emreeoozell/devops-application-002
+          image: emreeoozell/devops-application-002:v003
           resources:
             limits:
               memory: "128Mi"
