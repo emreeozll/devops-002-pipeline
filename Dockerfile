@@ -11,7 +11,7 @@ ARG JAR_FILE=target/*.jar
 # Projenin Jar halini Docker'ın içine şu isimle kopyala. Image'mizin adı
 # Jar docker da ki  image h+aline vermemiz gereken ismi biz veriyoruz. Hepsi küçük harflerle olmaladırr.
 # Docker'da ki extension'ın ismine bakarak örnek alabiliriz.
-COPY ${JAR_FILE} devops-application-v003.jar
+COPY ${JAR_FILE} devops-application-002.jar
 
 # BU JAR'I BİR LİNUX'UN İÇNE KOYACAĞI İÇİN TERMİNAL KOMUTLARINI "CMD" ile O LİNUX'A BURADAN KOMUTLAR YAZABİLİRİZ.
 # versiyonunu güncelleyebilirim
@@ -30,7 +30,7 @@ EXPOSE 8080
 #EntryPoint bir dizi [] halinde alıyor değerleri.
 # Uygulamanın çalıaşcağı komut.
 #Cmd ile .jar nasıl çalıştırılır. " java - jar devops-application-2024 "
-ENTRYPOINT ["java", "-jar", "devops-application-v003.jar"]
+ENTRYPOINT ["java", "-jar", "devops-application-002.jar"]
 
 # container adı değiştirme
 # docker container rename my-app5 my-app1
