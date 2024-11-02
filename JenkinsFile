@@ -24,7 +24,7 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/emreeozll/devops-002-pipeline']])
 
                 //sh 'mvn clean install'
-                bat 'docker build -t  emreeoozell/my-applications:latest   .'
+                bat 'docker build -t  emreeoozell/devops-application-002:v003   .'
             }
         }
 
@@ -44,7 +44,7 @@ pipeline {
 
                   //bat 'docker build -t  emreeoozell/my-applications   .'  : aynısı var diye yorum satırına aldım
 
-                   bat 'docker image push docker.io/emreeoozell/my-applications:latest'
+                   bat 'docker image push docker.io/emreeoozell/devops-application-002:v003'
 
                 }
               }

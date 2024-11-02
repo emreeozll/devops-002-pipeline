@@ -22,6 +22,7 @@ CMD sudo apt-get upgrade -y
 
 
 #İç port sabitlemek için kullanılan anahtar kelime
+#application.properties içeisindekiş uygulamımızın port no'su.
 #SONSUZA KADAR 8080. Kimse uygulamanın iç portunu değiştiremez. Bir başkası değiştirebilir çalışmıyor der ve çalışmaz.
 EXPOSE 8080
 
