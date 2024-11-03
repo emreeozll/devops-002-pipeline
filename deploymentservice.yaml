@@ -29,6 +29,6 @@ spec:
   selector:
     app: devops-application
   ports:
-    - port: 8088
+    - port: 8082
       targetPort: 8080
   type: NodePort
