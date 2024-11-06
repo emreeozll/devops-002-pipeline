@@ -13,11 +13,13 @@ public class DevOpsController {
 
     @GetMapping
     public String devopsHello(){
+        System.out.println(LocalDateTime.now());
         return "Hello World " + LocalDateTime.now();
     }
 
     @GetMapping("/info")
     public String devopsInfo(){
+        System.out.println("INFO " + LocalDateTime.now());
         return "INFO " + LocalDateTime.now();
     }
 
