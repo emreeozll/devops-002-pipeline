@@ -7,6 +7,7 @@ pipeline {
     }
 
 
+
     stages {
         stage('Build Maven') {
             steps {
@@ -16,6 +17,20 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
+
+
+
+         stage('Unit Test') {
+             steps{
+
+                           //sh 'mvn test'
+                            bat 'mvn test'
+
+                           //sh 'echo Docker Image to Clean'
+                            bat 'echo Docker Image to Clean'
+
+                   }
+         }
 
 
 
@@ -38,8 +53,6 @@ pipeline {
                 withCredentials([string(credentialsId: 'DockerHubToken', variable: 'DockerHubToken')]){
                   // some block
 
-
-
                   bat ' echo docker login --username emreeoozell --password ${DockerHubToken}'
 
                   //bat 'docker build -t  emreeoozell/my-applications   .'  : aynısı var diye yorum satırına aldım
@@ -52,6 +65,7 @@ pipeline {
         }
 
 
+
          stage('Deploy Kubernetes') {
               steps{
                script{
@@ -59,6 +73,18 @@ pipeline {
                      }
                }
          }
+
+
+
+          stage('Docker Imag to Clean') {
+                steps {
+
+                         bat ' echo Docker Image to Clean'
+                     }
+                }
+
+
+
 
 
     }
