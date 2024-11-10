@@ -79,7 +79,7 @@ pipeline {
           stage('Docker Imag to Clean') {
                 steps {
 
-                         bat 'docker rmi emreeoozell/devops-application-002:latest'
+                         bat 'docker rmi emreeoozell/devops-application-002:v003'
                      }
                 }
 
