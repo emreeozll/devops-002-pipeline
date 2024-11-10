@@ -79,7 +79,14 @@ pipeline {
           stage('Docker Imag to Clean') {
                 steps {
 
-                         bat 'docker rmi emreeoozell/devops-application-002:v003'
+                         // sh bat 'docker rmi emreeoozell/devops-application-002:v003'
+                         //  bat 'docker rmi emreeoozell/devops-application-002:v003'
+
+                          bat 'docker  image prune -f' : //Orjinal image dokunmadan Dangling'lerden(aynı image - none) kurtulmak istiyorsak
+                         // bat 'docker  image prune -a -f' : Aynı isimdeki imageleri ve tüm versiyonları silmek istiyorsak
+
+
+                         //  /* - */ jenkins yorum satırı alma, gereksiz aşamaları çalıştırmaya gerek yokken kullanabiliriz.
                      }
                 }
 
