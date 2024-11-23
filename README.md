@@ -1,245 +1,78 @@
+### DevOps-02-Pipeline: Modern CI/CD Uygulamaları için Pratik Yaklaşım 🚀
 
-#  DOCKER
+**DevOps-02-Pipeline** projesine hoş geldiniz! Bu çalışma, DevOps uygulamalarını temel alarak sürekli entegrasyon ve teslimat (CI/CD) süreçlerini otomatikleştiren bir işlem hattının nasıl tasarlanıp uygulanacağını ele alıyor. Amacımız, yazılım geliştirme ve dağıtım süreçlerini hızlandırmak, kod kalitesini artırmak ve sürdürülebilir bir dağıtım döngüsü oluşturmaktır.
 
-============= docker login =============
-```
-docker login   --username mimaraslan     --password 123456789
-
-docker login   -u         mimaraslan     -p        123456789
-```
-
-============= nginx =============
-DIŞ_PORT:İÇ_PORT
-```
-docker run     -it     -d     -p 9991:80     --name my-nginx      nginx
-```
-http://localhost:9991
-
-============= postgres =============
-```
-docker run  --name my-postgres   -p 9999:5432  -e POSTGRES_PASSWORD=123456789  -d  postgres
-```
-
-============= mysql =============
-```
-docker run  --name my-mysql      -p 9990:3306  -e MYSQL_ROOT_PASSWORD=123456789 -d  mysql 
-```
-
-
-
-============= Docker container adını değiştirne  =============
-```
-docker container rename my-app5 my-app1
-```
-
-
-#container push
-```
-docker image push docker.io/emreeoozell/devops-application-001:v002
-```
-
-#SÜRÜM YÜKLENMESİ VE TEKRAR GÜNCELLENMESİ
-
-```
-docker build --build-arg JAR_FILE=target/devops-001-hello-1.0.1.jar  --tag  emreeoozell/devops-application-001:v001 .
-```
-
-```
-docker build --build-arg JAR_FILE=target/devops-001-hello-1.0.2.jar  --tag  emreeoozell/devops-application-001:v002 .
-```
-
-#Son sürüm zorunlu olarak çıkartmamız gerekliidir. Mutlaka son sürüm bu ya gözükemsi lazım
-```
-docker build --build-arg JAR_FILE=target/devops-001-hello-1.0.2.jar  --tag  emreeoozell/devops-application-001:latest .
-```
-
-============= kendi projemizi Docker image haline çevimek =============
-```
-docker build  --build-arg JAR_FILE=target/devops-001-hello-1.0.1.jar   --tag    mimaraslan/devops-001-hello:v001   .
-```
-==================Burada jenkins'e yukarıdaki kodu kullanmanın daha kolay bir kısayol ile image gönderimi sağlayabiliriz. Çünkü jenkins'te .jar'a ihtiyacımız yoktur.
-o sadece backend'de oluşturulmaısı gereken bir alan. Versiyon belirtmek istmeiyorsak yazmıyoruz ama profesyonellikte yazılması gerekir.=====================================
-```
-docker build -t  mimaraslan/devops-001-hello:v001   . || docker build -t  mimaraslan/devops-001-hello   .
-```
-====================================================================================================
-
-```
-docker build  --build-arg JAR_FILE=target/devops-001-hello-1.0.2.jar   --tag    mimaraslan/devops-001-hello:v002   .
-
-docker build  --build-arg JAR_FILE=target/devops-001-hello-1.0.2.jar   --tag    mimaraslan/devops-001-hello:latest   .
-```
-
-
-============= kendi projemizi Docker image'den container haline çevimek =============
-```
-docker run     -it     -d     -p 8081:8080     --name my-app1      mimaraslan/devops-001-hello
-
-docker run     -it     -d     -p 8082:8080     --name my-app2      mimaraslan/devops-001-hello
-
-docker run     -it     -d     -p 8083:8080     --name my-app3      mimaraslan/devops-001-hello:v001
-
-docker run     -it     -d     -p 8084:8080     --name my-app4      mimaraslan/devops-001-hello:v002
-
-docker run     -it     -d     -p 8085:8080     --name my-app5      mimaraslan/devops-001-hello:latest
-```
-
-http://localhost:8081 </br>
-http://localhost:8082 </br>
-http://localhost:8083 </br>
-http://localhost:8084 </br>
-http://localhost:8085 </br>
-
-
-============= Docker Hub'dan image çekmek =============
-
-```
-docker pull mimaraslan/devops-001-hello:v001
-
-docker pull mimaraslan/devops-001-hello:v002
-
-docker pull mimaraslan/devops-001-hello:latest
-
-docker pull mimaraslan/devops-001-hello
-```
+### **Projenin Hedefleri**
 
+Bu projede aşağıdaki hedefleri gerçekleştirmeyi amaçlıyoruz:
 
+- **Otomatik Derlemeler:** Kodda yapılan her değişiklikte tetiklenen otomatik yapılar oluşturmak.
+- **Otomatik Test Süreçleri:** Kodun kalite ve güvenilirliğini sağlamak için entegre test adımları eklemek.
+- **Sürekli Entegrasyon:** Geliştirici ekiplerinin kodlarını hızlı ve güvenli bir şekilde birleştirmesini sağlamak.
+- **Sürekli Teslimat:** Hazırlık ve üretim ortamlarına sorunsuz bir şekilde otomatik dağıtım yapmak.
 
-### ============== network ==============
-### networkleri listele
+Bu hedeflerle, modern bir yazılım geliştirme sürecinin kalbini oluşturan bir CI/CD işlem hattı kurmaya yönelik somut bir kılavuz sunuyoruz. Proje, DevOps uzmanlarının ve geliştiricilerin, gerçek dünya senaryolarında uygulamalı bir deneyim kazanmasını sağlayacak.
 
-```
-docker network ls
-```
-
-### yeni bir network oluştur
-```
-docker network create my-network
-```
-
-### network tipini değiştirmek istiyorsanız --driver parametresi
-```
-docker network create --driver host
-```
-
-
-### network bilgisi ve onu kullanan containerlar
-```
-docker network inspect my-network
-```
-
-
-### networke container ekleme
-```
-docker network connect my-network my-app1
-docker network connect my-network my-app2
-docker network connect my-network my-app3
-docker network connect my-network my-app4
-```
-
-### network bilgisi ve onu kullanan containerlar
-```
-docker network inspect my-network
-```
-
-### networke container çıkarma
-```
-docker network disconnect my-app4
-```
-
-
-### network bilgisi ve onu kullanan containerlar
-```
-docker network inspect my-network
-```
+---
 
-### networkü silme
-```
-docker network rm my-network
-```
+### **Kullanılan Araçlar ve Teknolojiler**
 
+Bu projede, CI/CD işlemlerinin her aşamasında kullanılan modern DevOps araçlarından faydalanıyoruz:
 
-### ============== volume ==============
-```
-docker volume ls
-```
-### Yeni bir volume oluşturmak
-```
-docker volume create my-volume
-```
+- **Jenkins:** Derleme, test ve dağıtım süreçlerini yöneten güçlü bir CI/CD otomasyon aracı.
+- **Java:** Uygulama geliştirme ve çalışma zamanı desteği için tercih edilen bir platform.
+- **Git & GitHub:** Sürüm kontrolü ve kaynak kodu yönetimi için vazgeçilmez araçlar.
+- **Maven:** Java projeleri için bağımlılık yönetimi ve derleme otomasyonu sağlayan bir araç.
+- **Docker & DockerHub:** Uygulamaları izole edilmiş konteynerler halinde paketlemek ve paylaşmak için kullanılan platform.
+- **Kubernetes:** Konteynerleştirilmiş uygulamaların ölçeklenebilir bir şekilde dağıtılması ve yönetilmesi için kullanılan orkestrasyon sistemi.
 
-```
-docker volume ls
-```
+---
 
-```
-docker volume inspect my-volume
-```
+### **Neden Bu Proje?**
 
-### bir volume silmek
-```
-docker volume rm my-volume
-```
+Bu proje, modern yazılım geliştirme süreçlerine uyum sağlamak isteyen ekipler için bir yol haritası sunar. Pratik örnekler ve dinamik bir altyapıyla, CI/CD işlem hatlarının nasıl tasarlanıp optimize edileceği konusunda derinlemesine bir anlayış sağlar. Sürekli gelişen DevOps dünyasında yerinizi sağlamlaştırmak için bu projeyi deneyimlemek tam size göre!
 
-### kullanılmayan tüm volumeleri silmek
-```
-docker volume prune
-```
+Haydi, Pipeline birlikte inşa edelim ve teslimat süreçlerini geleceğe taşıyalım! 🚀
 
-### ============= docker-compose ===================
-```
-docker compose -f docker-compose.yml up
-```
 
-```
-docker ps
-```
 
-```
-docker container ls
-```
+<br></br>
+# Jenkins Kurulumu
+### Jenkins Üzerinde Maven Yapılandırması  
+Java projelerinde derleme süreçlerini otomatikleştirmek için Jenkins'e Maven eklemek oldukça önemlidir. Bu kılavuzda, Maven'ın 3.9.6 sürümünü Jenkins'e nasıl entegre edeceğinizi adım adım açıklıyoruz.  
 
-```
-docker-compose logs mongo
-docker-compose logs -f  mongo
-```
+#### **1. Jenkins'e Erişim Sağlayın**  
+Windows'ta execute dosyası olarak indirebilir, kurulum esnasında isterseniz konfigürasyonları yapabilirsiniz. 
 
+Ayrıca aşağıdaki komutları kullanarak da jenkins kurulumu ve local cihazınız üzerind eçalıştırma işlemi yapabilirsiniz.
 
 ```
-docker compose -f docker-compose.yml down
+cd D:\DevOps\Jenkins
+java -jar jenkins.war --httpPort=9999
 ```
-
+Tarayıcınız üzerinden Jenkins kontrol paneline ulaşmak için şu adresi kullanın:  
+`http://localhost:9999`  
 
+---
 
-### ============ Kubernetes compose ===========
+#### **2. Global Araç Yapılandırmasına Git**  
+- Jenkins ana sayfasından **Jenkins'i Yönet** sekmesine tıklayın.  
+- Açılan sayfada **Genel Araç Yapılandırması** seçeneğini bulun ve tıklayın.  
 
-kubectl apply -f _02_service_loadbalancer_create.yaml
+---
 
+#### **3. Maven Ekleyin**  
+- Gelen sayfada **Maven** bölümüne ilerleyin.  
+- **Maven Ekle** seçeneğine tıklayarak yeni bir Maven yapılandırması başlatın.  
+- **Ad** kısmına anlamlı bir isim verin, örneğin: `Maven-3.9.6`.  
+- **Otomatik Olarak Yükle** seçeneğini işaretleyin ve listeden **3.9.6 sürümünü** seçin.  
+  - Alternatif olarak, yerel makinenizde kurulu bir Maven sürümünü elle de tanımlayabilirsiniz.  
 
-### Docker Hub'daki imajı, yerel makinemde Docker kullanarak çekiyor ve bir container olarak çalıştırıyorum.
-```
-docker run     -it     -d     -p 8085:8080     --name my-app5      mimaraslan/devops-001-hello:latest
-```
+---
 
-### Docker Hub'dan imajı container olarak çekip Kubernetes'teki Pod içinde çalıştırıyorum.
-```
-kubectl run my-pod1 --image=mimaraslan/devops-001-hello:latest
-kubectl run my-pod2 --image=mimaraslan/devops-001-hello:v001
-kubectl run my-pod3 --image=mimaraslan/devops-001-hello:v002
-kubectl run my-pod4 --image=mimaraslan/devops-001-hello:v002
-kubectl run my-pod5 --image=mimaraslan/devops-001-hello:latest
-kubectl run my-pod6 --image=mimaraslan/devops-001-hello:latest
-kubectl run my-pod7 --image=mimaraslan/devops-001-hello:v003
-kubectl run my-pod8 --image=mysql
-kubectl run my-pod9 --image=postgres
-```
+#### **4. Yapılandırmayı Kaydedin**  
+- Girdiğiniz bilgileri saklamak için **Kaydet** butonuna basın.  
 
-```
-kubectl get nodes
-kubectl get node
-```
+---
 
-```
-kubectl get pods
-kubectl get pod
-```
+Artık Jenkins, Maven 3.9.6 sürümünü kullanmaya hazır! Bu yapılandırma, Jenkins boru hatlarınızda Java projelerini derleme, test etme ve dağıtma süreçlerini kolayca otomatikleştirmenizi sağlayacaktır. 🎉
